@@ -1,0 +1,63 @@
+import 'package:get/get.dart';
+
+/// 国际化翻译类
+/// v1.1 新增：支持中英双语
+class AppMessages extends Translations {
+  @override
+  Map<String, Map<String, String>> get keys => {
+        'zh_CN': {
+          'app_name': '电商B2C',
+          'home': '首页',
+          'category': '分类',
+          'cart': '购物车',
+          'order': '订单',
+          'mine': '我的',
+          'search_hint': '搜索商品',
+          'add_to_cart': '加入购物车',
+          'buy_now': '立即购买',
+          'login': '登录',
+          'logout': '退出登录',
+          'confirm_logout': '确认退出？',
+          'coupon': '优惠券',
+          'no_coupon': '暂无可用',
+          'submit_order': '提交订单',
+          'pay': '支付',
+          'order_pending': '待支付',
+          'order_paid': '已支付',
+          'order_shipped': '已发货',
+          'order_delivered': '已收货',
+          'order_completed': '已完成',
+          'order_cancelled': '已取消',
+          'stock_insufficient': '库存不足',
+          'network_error': '网络异常',
+          'offline_mode': '已切换为离线模式',
+        },
+        'en_US': {
+          'app_name': 'E-commerce B2C',
+          'home': 'Home',
+          'category': 'Category',
+          'cart': 'Cart',
+          'order': 'Orders',
+          'mine': 'Profile',
+          'search_hint': 'Search products',
+          'add_to_cart': 'Add to Cart',
+          'buy_now': 'Buy Now',
+          'login': 'Login',
+          'logout': 'Logout',
+          'confirm_logout': 'Confirm logout?',
+          'coupon': 'Coupon',
+          'no_coupon': 'No coupons available',
+          'submit_order': 'Submit Order',
+          'pay': 'Pay',
+          'order_pending': 'Pending',
+          'order_paid': 'Paid',
+          'order_shipped': 'Shipped',
+          'order_delivered': 'Delivered',
+          'order_completed': 'Completed',
+          'order_cancelled': 'Cancelled',
+          'stock_insufficient': 'Insufficient stock',
+          'network_error': 'Network error',
+          'offline_mode': 'Switched to offline mode',
+        },
+      };
+}

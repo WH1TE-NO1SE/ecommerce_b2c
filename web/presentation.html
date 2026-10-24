@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B2C电商平台 — 项目展示</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #0a0a1a; color: #e0e0e0; overflow-x: hidden; }
+
+  /* ===== 导航 ===== */
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,26,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  nav .inner { max-width: 1200px; margin: 0 auto; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+  nav .logo { font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #92A8D1, #74B9FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  nav a { color: #8B8BA3; text-decoration: none; margin-left: 32px; font-size: 14px; transition: color .2s; }
+  nav a:hover { color: #fff; }
+
+  /* ===== Hero ===== */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; position: relative; }
+  .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(146,168,209,0.15) 0%, transparent 70%); pointer-events: none; }
+  .hero .badge { display: inline-block; padding: 6px 20px; border-radius: 999px; border: 1px solid rgba(146,168,209,0.3); color: #92A8D1; font-size: 13px; margin-bottom: 24px; backdrop-filter: blur(10px); }
+  .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+  .hero h1 span { background: linear-gradient(135deg, #92A8D1 0%, #74B9FF 50%, #FD79A8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 18px; color: #8B8BA3; max-width: 600px; line-height: 1.7; margin-bottom: 40px; }
+  .hero .stats { display: flex; gap: 48px; flex-wrap: wrap; justify-content: center; }
+  .hero .stat { text-align: center; }
+  .hero .stat .num { font-size: 42px; font-weight: 800; background: linear-gradient(135deg, #74B9FF, #FD79A8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .stat .label { font-size: 13px; color: #8B8BA3; margin-top: 4px; }
+
+  /* ===== 通用 Section ===== */
+  section { max-width: 1200px; margin: 0 auto; padding: 100px 32px; }
+  section h2 { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+  section .subtitle { text-align: center; color: #8B8BA3; font-size: 16px; margin-bottom: 60px; }
+
+  /* ===== 技术栈 ===== */
+  .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .tech-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 32px; transition: all .3s; position: relative; overflow: hidden; }
+  .tech-card:hover { border-color: rgba(146,168,209,0.3); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+  .tech-card .icon { font-size: 36px; margin-bottom: 16px; }
+  .tech-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  .tech-card p { font-size: 14px; color: #8B8BA3; line-height: 1.6; }
+  .tech-card .tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; margin-top: 12px; margin-right: 6px; }
+  .tag-blue { background: rgba(116,185,255,0.15); color: #74B9FF; }
+  .tag-pink { background: rgba(253,121,168,0.15); color: #FD79A8; }
+  .tag-green { background: rgba(0,184,148,0.15); color: #00B894; }
+  .tag-orange { background: rgba(253,203,110,0.15); color: #FDCB6E; }
+
+  /* ===== 架构图 ===== */
+  .arch-wrapper { display: flex; flex-direction: column; gap: 32px; align-items: center; }
+  .arch-layer { width: 100%; max-width: 900px; border-radius: 16px; padding: 28px; position: relative; }
+  .arch-layer h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .arch-layer h3 .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .arch-items { display: flex; flex-wrap: wrap; gap: 12px; }
+  .arch-item { padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 500; }
+  .layer-frontend { background: rgba(116,185,255,0.06); border: 1px solid rgba(116,185,255,0.15); }
+  .layer-frontend h3 .dot { background: #74B9FF; }
+  .layer-frontend .arch-item { background: rgba(116,185,255,0.1); color: #74B9FF; }
+  .layer-backend { background: rgba(253,121,168,0.06); border: 1px solid rgba(253,121,168,0.15); }
+  .layer-backend h3 .dot { background: #FD79A8; }
+  .layer-backend .arch-item { background: rgba(253,121,168,0.1); color: #FD79A8; }
+  .layer-data { background: rgba(0,184,148,0.06); border: 1px solid rgba(0,184,148,0.15); }
+  .layer-data h3 .dot { background: #00B894; }
+  .layer-data .arch-item { background: rgba(0,184,148,0.1); color: #00B894; }
+  .arch-arrow { font-size: 28px; color: #3a3a5c; text-align: center; }
+
+  /* ===== 功能模块 ===== */
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 28px; transition: all .3s; }
+  .feature-card:hover { border-color: rgba(146,168,209,0.2); }
+  .feature-card .head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .feature-card .head .emoji { font-size: 28px; }
+  .feature-card .head h3 { font-size: 17px; font-weight: 600; }
+  .feature-card ul { list-style: none; }
+  .feature-card li { font-size: 14px; color: #a0a0b8; padding: 6px 0; padding-left: 20px; position: relative; }
+  .feature-card li::before { content: '✓'; position: absolute; left: 0; color: #00B894; font-weight: 600; }
+
+  /* ===== 亮点 ===== */
+  .highlight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .highlight-card { background: linear-gradient(135deg, rgba(146,168,209,0.08), rgba(116,185,255,0.04)); border: 1px solid rgba(146,168,209,0.12); border-radius: 14px; padding: 24px; text-align: center; transition: all .3s; }
+  .highlight-card:hover { transform: translateY(-4px); border-color: rgba(146,168,209,0.3); }
+  .highlight-card .num { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
+  .highlight-card .label { font-size: 13px; color: #8B8BA3; }
+
+  /* ===== 团队 ===== */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+  .team-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 28px 20px; text-align: center; transition: all .3s; }
+  .team-card:hover { border-color: rgba(146,168,209,0.2); }
+  .team-card .avatar { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+  .team-card .name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .team-card .role { font-size: 12px; color: #8B8BA3; margin-bottom: 10px; }
+  .team-card .desc { font-size: 12px; color: #6a6a82; line-height: 1.5; }
+
+  /* ===== 数据库 ===== */
+  .db-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+  .db-table th, .db-table td { padding: 12px 16px; text-align: left; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .db-table th { color: #8B8BA3; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .db-table td { color: #c0c0d0; }
+  .db-table tr:hover { background: rgba(255,255,255,0.02); }
+  .db-table .tbl { color: #74B9FF; font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace; }
+
+  /* ===== API ===== */
+  .api-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .api-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; }
+  .api-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .api-card .method { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-family: monospace; }
+  .method-get { background: rgba(0,184,148,0.2); color: #00B894; }
+  .method-post { background: rgba(116,185,255,0.2); color: #74B9FF; }
+  .method-put { background: rgba(253,203,110,0.2); color: #FDCB6E; }
+  .method-delete { background: rgba(255,107,107,0.2); color: #FF6B6B; }
+  .api-card .path { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; color: #8B8BA3; }
+  .api-card .count { font-size: 11px; color: #6a6a82; margin-top: 6px; }
+
+  /* ===== 流程图 ===== */
+  .flow-container { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 40px 0; }
+  .flow-step { background: rgba(146,168,209,0.1); border: 1px solid rgba(146,168,209,0.2); border-radius: 12px; padding: 16px 24px; text-align: center; min-width: 100px; }
+  .flow-step .icon { font-size: 24px; margin-bottom: 6px; }
+  .flow-step .text { font-size: 13px; font-weight: 500; }
+  .flow-arrow { font-size: 20px; color: #3a3a5c; }
+
+  /* ===== Footer ===== */
+  footer { text-align: center; padding: 60px 32px; border-top: 1px solid rgba(255,255,255,0.06); }
+  footer p { color: #4a4a62; font-size: 13px; }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 768px) {
+    nav .inner { padding: 12px 16px; }
+    nav a { margin-left: 16px; font-size: 13px; }
+    section { padding: 60px 16px; }
+    .hero .stats { gap: 24px; }
+    .hero .stat .num { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav>
+  <div class="inner">
+    <div class="logo">B2C E-Commerce</div>
+    <div>
+      <a href="#tech">技术栈</a>
+      <a href="#arch">架构</a>
+      <a href="#features">功能</a>
+      <a href="#highlights">亮点</a>
+      <a href="#team">团队</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="badge">🎓 系统分析与设计 · 课程设计</div>
+  <h1><span>B2C电商平台</span></h1>
+  <p>基于 Flutter + FastAPI + MySQL 的全栈跨平台电商系统<br>一套代码，Android + Web 双端运行</p>
+  <div class="stats">
+    <div class="stat"><div class="num">39</div><div class="label">API 接口</div></div>
+    <div class="stat"><div class="num">14</div><div class="label">数据库表</div></div>
+    <div class="stat"><div class="num">16</div><div class="label">页面</div></div>
+    <div class="stat"><div class="num">49</div><div class="label">Dart 文件</div></div>
+    <div class="stat"><div class="num">2</div><div class="label">运行平台</div></div>
+  </div>
+</div>
+
+<!-- 技术栈 -->
+<section id="tech">
+  <h2>技术栈</h2>
+  <p class="subtitle">现代化全栈技术选型，覆盖前端、后端、数据库全链路</p>
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="icon">💙</div>
+      <h3>Flutter</h3>
+      <p>Google 跨平台 UI 框架，一套代码编译 Android、iOS、Web、Desktop 多端应用</p>
+      <span class="tag tag-blue">Dart 3.5</span>
+      <span class="tag tag-blue">声明式UI</span>
+    </div>
+    <div class="tech-card">
+      <div class="icon">⚡</div>
+      <h3>GetX</h3>
+      <p>Flutter 生态最流行的状态管理方案，集路由、状态管理、依赖注入于一体</p>
+      <span class="tag tag-pink">状态管理</span>
+      <span class="tag tag-pink">路由</span>
+      <span class="tag tag-pink">DI</span>
+    </div>
+    <div class="tech-card">
+      <div class="icon">🚀</div>
+      <h3>FastAPI</h3>
+      <p>Python 最快的 Web 框架，自动生成 Swagger 文档，类型提示校验</p>
+      <span class="tag tag-green">Python 3.12</span>
+      <span class="tag tag-green">异步</span>
+    </div>
+    <div class="tech-card">
+      <div class="icon">🐬</div>
+      <h3>MySQL 8.0</h3>
+      <p>全球最流行的开源关系型数据库，14 张表，外键约束，索引优化</p>
+      <span class="tag tag-orange">事务</span>
+      <span class="tag tag-orange">JSON字段</span>
+    </div>
+    <div class="tech-card">
+      <div class="icon">🔐</div>
+      <h3>JWT 认证</h3>
+      <p>无状态 Token 认证方案，bcrypt 密码加密，管理员权限双重校验</p>
+      <span class="tag tag-blue">无状态</span>
+      <span class="tag tag-blue">bcrypt</span>
+    </div>
+    <div class="tech-card">
+      <div class="icon">🌐</div>
+      <h3>Dio HTTP</h3>
+      <p>Flutter 最强 HTTP 客户端，拦截器链、自动重试、离线回退</p>
+      <span class="tag tag-pink">拦截器</span>
+      <span class="tag tag-pink">重试</span>
+      <span class="tag tag-pink">离线回退</span>
+    </div>
+  </div>
+</section>
+
+<!-- 架构 -->
+<section id="arch">
+  <h2>系统架构</h2>
+  <p class="subtitle">前后端分离三层架构，职责清晰，低耦合高内聚</p>
+  <div class="arch-wrapper">
+    <div class="arch-layer layer-frontend">
+      <h3><span class="dot"></span> 表示层 · Flutter 前端</h3>
+      <div class="arch-items">
+        <div class="arch-item">📱 首页/商品/购物车</div>
+        <div class="arch-item">📋 订单/支付/地址</div>
+        <div class="arch-item">🛠️ 管理后台 (5 Tab)</div>
+        <div class="arch-item">🔄 GetX 状态管理</div>
+        <div class="arch-item">🧭 路由 + 中间件</div>
+        <div class="arch-item">🎨 液态玻璃主题</div>
+      </div>
+    </div>
+    <div class="arch-arrow">⬇ HTTP / JSON ⬇</div>
+    <div class="arch-layer layer-backend">
+      <h3><span class="dot"></span> 业务层 · FastAPI 后端</h3>
+      <div class="arch-items">
+        <div class="arch-item">🔑 认证 API (JWT)</div>
+        <div class="arch-item">📦 商品 API</div>
+        <div class="arch-item">🛒 购物车 API</div>
+        <div class="arch-item">📋 订单 API (状态机)</div>
+        <div class="arch-item">📍 地址 API</div>
+        <div class="arch-item">🏷️ 优惠券 API</div>
+        <div class="arch-item">🛠️ 管理 API (16个)</div>
+      </div>
+    </div>
+    <div class="arch-arrow">⬇ SQL (SQLAlchemy ORM) ⬇</div>
+    <div class="arch-layer layer-data">
+      <h3><span class="dot"></span> 数据层 · MySQL 8.0</h3>
+      <div class="arch-items">
+        <div class="arch-item">👤 users</div>
+        <div class="arch-item">📦 products + skus + images</div>
+        <div class="arch-item">📋 orders + items</div>
+        <div class="arch-item">💳 payments</div>
+        <div class="arch-item">📍 addresses</div>
+        <div class="arch-item">🏷️ coupons + user_coupons</div>
+        <div class="arch-item">🚚 logistics + nodes</div>
+        <div class="arch-item">⭐ reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 购物流程 -->
+<section>
+  <h2>用户购物流程</h2>
+  <p class="subtitle">从浏览到支付的完整闭环</p>
+  <div class="flow-container">
+    <div class="flow-step"><div class="icon">🏠</div><div class="text">浏览首页</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">🔍</div><div class="text">搜索/筛选</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">📄</div><div class="text">商品详情</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">🛒</div><div class="text">加入购物车</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">📝</div><div class="text">确认订单</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">💳</div><div class="text">支付</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">✅</div><div class="text">完成</div></div>
+  </div>
+</section>
+
+<!-- 功能模块 -->
+<section id="features">
+  <h2>功能模块</h2>
+  <p class="subtitle">用户端 12 个页面 + 管理端 5 个 Tab，覆盖完整电商业务</p>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="head"><span class="emoji">👤</span><h3>用户认证</h3></div>
+      <ul>
+        <li>注册 / 登录 双模式切换</li>
+        <li>JWT Token 自动持久化</li>
+        <li>bcrypt 密码加密</li>
+        <li>管理员权限双重校验</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="head"><span class="emoji">📦</span><h3>商品模块</h3></div>
+      <ul>
+        <li>33 个商品，8 个分类</li>
+        <li>分类筛选 + 关键词搜索 (300ms 防抖)</li>
+        <li>SKU 规格选择，价格联动</li>
+        <li>商品标签（热卖/包邮/新品）</li>
+        <li>Unsplash 真实商品图片</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="head"><span class="emoji">🛒</span><h3>购物车</h3></div>
+      <ul>
+        <li>完整商品快照持久化（重启不丢失）</li>
+        <li>库存校验 (StockException)</li>
+        <li>规格切换（失败自动恢复）</li>
+        <li>全选 / 反选 / 数量编辑</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="head"><span class="emoji">📋</span><h3>订单系统</h3></div>
+      <ul>
+        <li>9 种订单状态 + 状态机校验</li>
+        <li>地址 JSON 快照（历史不变）</li>
+        <li>支付成功后才清购物车</li>
+        <li>优惠券应用（满减/折扣）</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="head"><span class="emoji">🛠️</span><h3>管理后台</h3></div>
+      <ul>
+        <li>数据中心（统计 + 热销 TOP10）</li>
+        <li>商品 CRUD + 上下架</li>
+        <li>订单管理 + 一键发货</li>
+        <li>用户角色管理</li>
+        <li>优惠券 CRUD</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="head"><span class="emoji">🛡️</span><h3>工程特性</h3></div>
+      <ul>
+        <li>离线回退（网络异常自动降级）</li>
+        <li>骨架屏加载体验</li>
+        <li>响应式管理后台布局</li>
+        <li>亮色 / 暗色双主题</li>
+        <li>中英双语国际化框架</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 技术亮点 -->
+<section id="highlights">
+  <h2>技术亮点</h2>
+  <p class="subtitle">对标工业级实践的 10 个技术亮点</p>
+  <div class="highlight-grid">
+    <div class="highlight-card"><div class="num" style="color:#74B9FF">1</div><div class="label">Flutter 跨平台<br>一套代码双端运行</div></div>
+    <div class="highlight-card"><div class="num" style="color:#FD79A8">2</div><div class="label">FastAPI + Swagger<br>39 个接口自动文档</div></div>
+    <div class="highlight-card"><div class="num" style="color:#00B894">3</div><div class="label">JWT 无状态认证<br>bcrypt 密码加密</div></div>
+    <div class="highlight-card"><div class="num" style="color:#FDCB6E">4</div><div class="label">订单状态机<br>9 种状态严格校验</div></div>
+    <div class="highlight-card"><div class="num" style="color:#74B9FF">5</div><div class="label">离线回退机制<br>网络异常自动降级</div></div>
+    <div class="highlight-card"><div class="num" style="color:#FD79A8">6</div><div class="label">库存双重校验<br>前端预检 + 后端原子扣减</div></div>
+    <div class="highlight-card"><div class="num" style="color:#00B894">7</div><div class="label">购物车快照持久化<br>重启不丢失</div></div>
+    <div class="highlight-card"><div class="num" style="color:#FDCB6E">8</div><div class="label">搜索防抖<br>300ms 延迟优化</div></div>
+    <div class="highlight-card"><div class="num" style="color:#74B9FF">9</div><div class="label">响应式管理后台<br>大屏侧边栏/小屏TabBar</div></div>
+    <div class="highlight-card"><div class="num" style="color:#FD79A8">10</div><div class="label">骨架屏 + 加载占位<br>丝滑用户体验</div></div>
+  </div>
+</section>
+
+<!-- 数据库 -->
+<section>
+  <h2>数据库设计</h2>
+  <p class="subtitle">14 张表，覆盖用户、商品、订单、营销四大业务域</p>
+  <table class="db-table">
+    <thead><tr><th>#</th><th>表名</th><th>说明</th><th>核心字段</th><th>设计亮点</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="tbl">users</td><td>用户表</td><td>username, password_hash, role, points</td><td>bcrypt 加密</td></tr>
+      <tr><td>2</td><td class="tbl">categories</td><td>分类表</td><td>name, icon, sort_order</td><td>—</td></tr>
+      <tr><td>3</td><td class="tbl">products</td><td>商品主表</td><td>name, price, stock, tags, is_active</td><td>tags 标签字段</td></tr>
+      <tr><td>4</td><td class="tbl">product_skus</td><td>规格表</td><td>spec_name, spec_value, price, stock</td><td>独立库存</td></tr>
+      <tr><td>5</td><td class="tbl">product_images</td><td>图片表</td><td>image_url, sort_order</td><td>1:N 关联</td></tr>
+      <tr><td>6</td><td class="tbl">reviews</td><td>评价表</td><td>rating, content, product_spec</td><td>—</td></tr>
+      <tr><td>7</td><td class="tbl">addresses</td><td>地址表</td><td>receiver_name, province/city/district, is_default</td><td>默认地址唯一</td></tr>
+      <tr><td>8</td><td class="tbl">orders</td><td>订单表</td><td>status, address_snapshot(JSON), actual_amount</td><td>JSON 地址快照</td></tr>
+      <tr><td>9</td><td class="tbl">order_items</td><td>订单明细</td><td>product_name(快照), product_price(快照), quantity</td><td>商品快照</td></tr>
+      <tr><td>10</td><td class="tbl">payments</td><td>支付记录</td><td>amount, pay_method, status, paid_at</td><td>1:1 订单</td></tr>
+      <tr><td>11</td><td class="tbl">logistics</td><td>物流信息</td><td>company, tracking_no, status</td><td>1:1 订单</td></tr>
+      <tr><td>12</td><td class="tbl">logistics_nodes</td><td>物流节点</td><td>time, content, location</td><td>1:N 物流</td></tr>
+      <tr><td>13</td><td class="tbl">coupons</td><td>优惠券模板</td><td>type, threshold, discount, start/end_time</td><td>满减/折扣</td></tr>
+      <tr><td>14</td><td class="tbl">user_coupons</td><td>用户优惠券</td><td>is_used, used_at, order_id</td><td>N:M 关联</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- API -->
+<section>
+  <h2>API 接口</h2>
+  <p class="subtitle">39 个 RESTful 接口，全部支持 Swagger 在线测试</p>
+  <div class="api-grid">
+    <div class="api-card">
+      <h4>🔑 认证模块</h4>
+      <div class="path"><span class="method method-post">POST</span> /api/auth/register</div>
+      <div class="path"><span class="method method-post">POST</span> /api/auth/login</div>
+      <div class="count">2 个接口</div>
+    </div>
+    <div class="api-card">
+      <h4>📦 商品模块</h4>
+      <div class="path"><span class="method method-get">GET</span> /api/categories</div>
+      <div class="path"><span class="method method-get">GET</span> /api/products</div>
+      <div class="path"><span class="method method-get">GET</span> /api/products/{id}</div>
+      <div class="count">3 个接口</div>
+    </div>
+    <div class="api-card">
+      <h4>🛒 购物车</h4>
+      <div class="path"><span class="method method-get">GET</span> /api/cart</div>
+      <div class="path"><span class="method method-post">POST</span> /api/cart/sync</div>
+      <div class="count">2 个接口</div>
+    </div>
+    <div class="api-card">
+      <h4>📋 订单模块</h4>
+      <div class="path"><span class="method method-post">POST</span> /api/orders</div>
+      <div class="path"><span class="method method-get">GET</span> /api/orders</div>
+      <div class="path"><span class="method method-put">PUT</span> /api/orders/{id}/status</div>
+      <div class="path"><span class="method method-post">POST</span> /api/orders/{id}/pay</div>
+      <div class="count">5 个接口</div>
+    </div>
+    <div class="api-card">
+      <h4>📍 地址模块</h4>
+      <div class="path"><span class="method method-get">GET</span> /api/addresses</div>
+      <div class="path"><span class="method method-post">POST</span> /api/addresses</div>
+      <div class="path"><span class="method method-put">PUT</span> /api/addresses/{id}</div>
+      <div class="path"><span class="method method-delete">DEL</span> /api/addresses/{id}</div>
+      <div class="count">5 个接口</div>
+    </div>
+    <div class="api-card">
+      <h4>🛠️ 管理后台</h4>
+      <div class="path"><span class="method method-get">GET</span> /api/admin/dashboard</div>
+      <div class="path"><span class="method method-get">GET</span> /api/admin/products</div>
+      <div class="path"><span class="method method-put">PUT</span> /api/admin/orders/{id}/ship</div>
+      <div class="path"><span class="method method-get">GET</span> /api/admin/users</div>
+      <div class="count">16 个接口</div>
+    </div>
+  </div>
+</section>
+
+<!-- 团队 -->
+<section id="team">
+  <h2>团队成员</h2>
+  <p class="subtitle">6 人协作，6 周完成</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#92A8D1,#74B9FF)">👨‍💻</div>
+      <div class="name">白噪音</div>
+      <div class="role">组长</div>
+      <div class="desc">架构设计 · 订单支付 · 数据库 · 项目统筹</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#FD79A8,#FDCB6E)">👨‍💻</div>
+      <div class="name">苏昶瑞</div>
+      <div class="role">成员</div>
+      <div class="desc">用户认证 · JWT · 地址管理</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#00B894,#74B9FF)">👨‍💻</div>
+      <div class="name">程锦帆</div>
+      <div class="role">成员</div>
+      <div class="desc">商品模块 · 分类搜索 · SKU · 种子数据</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#FDCB6E,#FF6B6B)">👨‍💻</div>
+      <div class="name">李智鹏</div>
+      <div class="role">成员</div>
+      <div class="desc">购物车 · 库存校验 · 下单结算</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#A29BFE,#FD79A8)">👩‍💻</div>
+      <div class="name">田沐雪</div>
+      <div class="role">成员</div>
+      <div class="desc">优惠券营销 · UI组件 · 主题 · 国际化</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#74B9FF,#00B894)">👨‍💻</div>
+      <div class="name">任晨旭</div>
+      <div class="role">成员</div>
+      <div class="desc">管理后台 · 路由绑定 · 管理API</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>B2C电商平台 · 系统分析与设计课程设计 · 2026</p>
+  <p style="margin-top:8px;font-size:12px;color:#3a3a5c">Flutter + FastAPI + MySQL · 山东财经大学</p>
+</footer>
+
+</body>
+</html>
